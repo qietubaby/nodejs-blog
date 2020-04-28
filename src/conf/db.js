@@ -16,7 +16,7 @@ if (env === 'production') {
     MYSQL_CONF = {
         host: 'localhost',
         user: 'root',
-        password: 'Mysql_2018',
+        password: '',
         port: '3306',
         database: 'myblog'
     }

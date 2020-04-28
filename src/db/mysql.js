@@ -11,6 +11,7 @@ con.connect();
 function exec(sql) {
     const promise = new Promise((resolve, reject) => {
         con.query(sql, (err, result) => {
+
             if (err) {
                 console.error(err);
                 return;
@@ -18,8 +19,8 @@ function exec(sql) {
             resolve(result);
         });
     });
-    return promise
+    return promise;
 }
-module.export = {
-    exec
+module.exports = {
+    exec,
 };
