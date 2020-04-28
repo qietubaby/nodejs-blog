@@ -1,5 +1,9 @@
 # nodejs博客项目
 
+## 启动
+
+- npm run dev
+
 ## 搭建开发环境
 
 - nodemon 监测文件变化，自动重启node

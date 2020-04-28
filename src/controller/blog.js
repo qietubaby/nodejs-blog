@@ -68,7 +68,7 @@ const newBlog = (blogData = {}) => {
     `
 
     return exec(sql).then(insertData => {
-        console.log(insertData)
+
         return {
             id: insertData.insertId
         }
@@ -111,7 +111,6 @@ const updateBlog = (id, blogData = {}) => {
 const delBlog = (id, author) => {
     // id 就是要删除博客的id
     const sql = `delete from blogs where id='${id}' and author='${author}';`
-    console.log(sql)
     return exec(sql).then(deleteData => {
         if (deleteData.affectedRows > 0) {
             return true

@@ -2,6 +2,9 @@ const handleUserRouter = require('./src/router/user');
 const handleBlogRouter = require('./src/router/blog');
 const querystring = require('querystring');
 
+// session 数据
+const SESSION_DATA = {};
+
 // 用于处理 post data
 const getPostData = (req) => {
     const promise = new Promise((resolve, reject) => {
@@ -35,11 +38,26 @@ const serverHandle = (req, res) => {
 
     // 获取 path
     const url = req.url;
+
     // const path = url.split('?')[0]
     req.path = url.split('?')[0];
 
     // 解析 query
     req.query = querystring.parse(url.split('?')[1]);
+
+    // 解析 cookie
+    req.cookie = {};
+    const cookieStr = req.headers.cookie || ''; // k1=v1;k2=v2;k3=v3
+    cookieStr.split(';').forEach((item) => {
+        if (!item) {
+            return;
+        }
+        const arr = item.split('=');
+        const key = arr[0].trim();
+        const val = arr[1].trim();
+        req.cookie[key] = val;
+    });
+
 
     // 处理 post data
     getPostData(req).then((postData) => {
@@ -56,15 +74,15 @@ const serverHandle = (req, res) => {
             blogResult.then((blogData) => {
                 res.end(JSON.stringify(blogData));
             });
-            return
+            return;
         }
 
-
-
         // 处理 user 路由
-        const userData = handleUserRouter(req, res);
-        if (userData) {
-            res.end(JSON.stringify(userData));
+        const userResult = handleUserRouter(req, res);
+        if (userResult) {
+            userResult.then((userData) => {
+                res.end(JSON.stringify(userData));
+            });
             return;
         }
 

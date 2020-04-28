@@ -8,7 +8,6 @@ const {
 const { SuccessModel, ErrorModel } = require('../model/resModel');
 
 const handleBlogRouter = (req, res) => {
-    console.log(req.query)
     const method = req.method; // GET POST
     const id = req.query.id; // blog id
 
